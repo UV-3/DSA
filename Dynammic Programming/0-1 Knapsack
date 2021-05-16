@@ -1,0 +1,14 @@
+int Solution::solve(vector<int> &A, vector<int> &B, int C) {
+    int n= A.size();
+    vector<vector<int>>dp(n+1,vector<int>(C+1,0));
+    for(int i=1;i<=n;i++){
+        for(int j=0;j<=C;j++){
+            dp[i][j]=dp[i-1][j];
+            int val= j-B[i-1];
+            if(val>=0){
+                dp[i][j]=max(dp[i][j],dp[i-1][val]+A[i-1]);
+            }
+        }
+    }
+    return dp[n][C];
+}
