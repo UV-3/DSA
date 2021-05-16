@@ -1,0 +1,12 @@
+int Solution::solve(int A) {
+    vector<int>a(A+1);
+    vector<int>b(A+1);
+    const int mod= 1e9+7;
+    a[0]=b[1]=1;
+    a[1]=b[0]=0;
+    for(int i=2;i<=A;i++){
+        a[i]=(a[i-2]%mod+2*b[i-1]%mod)%mod;
+        b[i]=(b[i-2]%mod+a[i-1]%mod)%mod;
+    }
+    return a[A];
+}
