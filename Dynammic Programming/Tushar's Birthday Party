@@ -1,0 +1,46 @@
+// UNBOUNDED KNAPSACK
+int Solution::solve(const vector<int> &A, const vector<int> &B, const vector<int> &C) {
+    int n=A.size(), m=B.size();
+    vector<int> cap(n);
+    for(int i=0;i<n;i++)
+    {
+        cap[i]=A[i];
+    }
+    vector<int> wt(m), val(m);
+    for(int i=0;i<m;i++)
+    {
+        wt[i]=B[i];
+    }
+    for(int i=0;i<m;i++)
+    {
+       val[i]=C[i];
+    }
+    vector<vector<int>> dp(m + 1, vector<int>(1005));
+    for (int i = 0; i < 1005; i++)
+    {
+        dp[0][i] = 1000000007;   // PRICE TO GET (WEIGHT) >0 WITH 0 ELEMENTS IS INF 
+    }
+    for (int i = 0; i <= m; i++)
+    {
+        dp[i][0] = 0;  // PRICE TO GET 0 WEIGHT WITH ANY NUMBER OF ELEMENTS IS 0 AS DON'T TAKE ANY WEIGHT
+    }
+    for (int i = 1; i <= m; i++)
+    {
+        for (int j = 1; j < 1005; j++)
+        {
+            dp[i][j] = dp[i - 1][j];  //PRICE CAN BE PRICE WITH ONE LESS ELEMENT
+            if (j - wt[i - 1] >= 0)
+            {
+                dp[i][j] = min(dp[i][j], dp[i][j - wt[i - 1]] + val[i - 1]);  // PRICE CAN BE SELECTING THE CURRENT 
+                             // ELEMENT'S WEIGHT AND GETTING THE PRICE FOR REST WEIGHT WITH SAME NUMBER OF ELEMENTS
+                             // AS ONE ELEMENT CAN BE SELECTED MORE THAN ONCE
+            }
+        }
+    }
+    int sum = 0;
+    for (int i = 0; i < n; i++)
+    {
+        sum += dp[m][cap[i]];
+    }
+    return sum;
+}
