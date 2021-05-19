@@ -1,0 +1,21 @@
+vector<int> Solution::plusOne(vector<int> &A) {
+    vector<int>ans;
+    reverse(A.begin(),A.end());
+    int carry=1;
+    for(int i=0;i<A.size();i++){
+        int sum= A[i]+carry;
+        ans.push_back(sum%10);   
+        carry= sum/10;
+    }
+    eg. 9 9 9 9 then ans will be 0 0 0 0 so add 1 to the end
+    if(carry==1){
+        ans.push_back(1);
+    }
+    // eg. 0 0 1 2 3 then ans will be 4 2 1 0 0 
+    while(ans[ans.size()-1]==0){
+        ans.pop_back();
+    }
+    reverse(ans.begin(),ans.end());
+    reverse(A.begin(),A.end());
+    return ans;
+}
