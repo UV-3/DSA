@@ -25,3 +25,52 @@ approach 2
     ans.push_back(x);
     return ans;
 }
+
+
+approach 3. XOR method
+
+vector<int> Solution::repeatedNumber(const vector<int> &arr) {
+    int x=0,y=0; // x-> missing one and y-> repeated one
+    vector<int>ans;
+    int xor1=0;
+    int n=arr.size();
+    for(int i=0;i<n;i++){
+        xor1= xor1^arr[i];
+    }
+    for(int i=1;i<=n;i++){
+        xor1= xor1^(i);
+    }
+    // this will cancel xor of all elements except x and y
+    int rsbit= xor1 & ~(xor1-1);  // right most set bit in xor1 will be either set in x or set in y
+    // creating two different sets
+    for(int i=0;i<n;i++){
+        if((rsbit) & (arr[i])){
+            x= x^arr[i];
+        }
+        else{
+            y=y^arr[i];
+        }
+    }
+    for(int i=1;i<=n;i++){
+        if((rsbit) & (i)){
+            x= x^i;
+        }
+        else{
+            y=y^i;
+        }
+    }
+    int flg=0;
+    for(int i=0;i<n;i++){
+        if(arr[i]==x){
+            flg=1;
+            break;
+        }
+    }
+    if(flg){
+        swap(x,y);
+    }
+    ans.push_back(y);
+    ans.push_back(x);
+    return ans;
+    // O(5*n)
+}
