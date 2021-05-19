@@ -1,0 +1,22 @@
+string Solution::countAndSay(int n) {
+    vector<string>s(n);
+    s[0]="1";
+    for(int i=1;i<n;i++){
+        string t=s[i-1];
+        int j=0;
+        string push="";
+        while(j<t.size()){
+            int cnt=0;
+            int num=t[j]-'0';
+            char c= t[j];
+            while(j<t.size() && t[j]==c){
+                cnt++;
+                j++;
+            }
+            push+= cnt+'0';
+            push+= num+'0';
+        }
+        s[i]=push;
+    }
+    return s[n-1];
+}
