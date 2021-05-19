@@ -1,0 +1,51 @@
+O(n) time complexity
+O(n) space complexity
+vector<int> Solution::solve(vector<int> &A) {
+   vector<int>ans;
+   int n=A.size();
+   int i=0;
+   while(A[i]<0){
+       i++;
+   }
+   int j=i;
+   i--;
+   while(j<n && i>=0){
+       if(abs(A[i])<abs(A[j])){
+           ans.push_back(abs(A[i]*A[i]));
+           i--;
+       }
+       else{
+           ans.push_back(abs(A[j]*A[j]));
+           j++;
+       }
+   }
+   while(i>=0){
+       ans.push_back(abs(A[i]*A[i]));
+       i--;
+   }
+   while(j<n){
+       ans.push_back(abs(A[j]*A[j]));
+       j++;
+   }
+   return ans;
+}
+
+---------------------------------------------------------------------------------------
+O(n) time complexity
+O(n) space complexity
+vector<int> Solution::solve(vector<int> &A) {
+    map<int, int > m;
+    int n=A.size();
+    for(int i=0;i<n;i++){
+        m[(A[i]*A[i])]++;
+    }
+    int j=0;
+    vector<int>ans(n);
+    for(auto x:m){
+        for(int k=0;k<x.second;k++){
+            ans[j]=x.first;
+            j++;
+        }
+    }
+    return ans;
+}
