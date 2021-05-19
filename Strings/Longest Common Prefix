@@ -1,0 +1,13 @@
+string Solution::longestCommonPrefix(vector<string> &A) {
+    sort(A.begin(),A.end());//sorting the array in lexicographic order
+    int m= A.size()-1; // pointer to last string
+    int n=min(A[0].size(),A[m].size()); // since loop will check prefix till min length
+    int i=0;
+    string s="";
+    // since most chance of dissimilar strings will be these
+    while(i<n && A[0][i]==A[m][i]){
+        s+=A[0][i];
+        i++;
+    }
+    return s;
+}
