@@ -15,3 +15,25 @@ void Solution::merge(vector<int> &a, vector<int> &b) {
         a.push_back(b[i]);
     }
 }
+
+
+ACCEPTED SOLUTION USING GAP METHOD
+
+void Solution::merge(vector<int> &a, vector<int> &b) {
+    int n=a.size(),m=b.size();
+    for(int i=0;i<m;i++){
+        a.push_back(b[i]);
+    }
+    int gap=n+m;
+    while(gap!=1){
+        gap= (gap+1)/2;
+        int i=0,j=i+gap;
+        while(i<n+m && j<n+m){
+            if(a[i]>a[j]){
+                swap(a[i],a[j]);
+            }
+            i++;
+            j++;
+        }
+    }
+}
