@@ -1,0 +1,13 @@
+int Solution::maxSubArray(const vector<int> &a) {
+    int sum=0;
+    int maxi=a[0];
+    for(int i=0;i<a.size();i++){
+        sum+=a[i];
+        maxi=max(maxi,sum);
+        if(sum<0){
+            sum=0;
+        }
+    }
+    return maxi;
+}
+// INTUITION IS IF SUM<0 WE LEAVE THE SUBARRAY COLLECTED TILL NOW
