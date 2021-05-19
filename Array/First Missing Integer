@@ -1,0 +1,28 @@
+int Solution::firstMissingPositive(vector<int> &arr) {
+    // first missing positive can lie in range [1,n+1]
+    // so ignore elements <1 && > n
+    // we use array itself as a bucket and try to place elements
+    // at their correct positions
+    // 3 4 -1 1 case consider to think
+    int n=arr.size();
+    for(int i=0;i<n;i++){
+        if(arr[i]>=1 && arr[i]<=n){
+            int pos=arr[i]-1;
+            if(arr[pos]!=arr[i]){
+                swap(arr[pos],arr[i]);
+                i--;
+            }
+        }
+    }
+    int ans=-1;
+    for(int i=0;i<n;i++){
+        if(arr[i]!=i+1){
+            ans=i+1;
+            break;
+        }
+    }
+    if(ans==-1){
+        ans=n+1;
+    }
+    return ans;
+}
