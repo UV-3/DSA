@@ -1,0 +1,57 @@
+O(n*m) approach with O(1) space complexity best approach 
+void Solution::setZeroes(vector<vector<int> > &mat) {
+    int n=mat.size();
+    int m=mat[0].size();
+    // actually here we use the first row and first column as array to store 0's information
+    bool flg=false;   // this is a check for first column because  if some element in column 0 is 0 it will set mat[0][0] to 0 which will set entire first row =0;
+    for(int i=0;i<n;i++){
+        if(mat[i][0]==0){   // if any of the first column if 0 then flg=true and afterwards entire first column can be set 0 using this flg;
+            flg=true;
+        }
+        for(int j=1;j<m;j++){  // after work done for 1st column separately marking for the rest column
+            if(mat[i][j]==0){
+                mat[i][0]=0;mat[0][j]=0;
+            }
+        }
+    }
+    for(int i=n-1;i>=0;i--){ //  checking from bottom to up leaving the first column because others depend on first column and if it processed first then it can
+    // result of our array which stores information about 0's.
+        for(int j=m-1;j>=1;j--){
+            if(mat[i][0]==0 || mat[0][j]==0){
+                mat[i][j]=0;
+            }
+        }
+        if(flg==true){.  // after completing the rest column we process the 1st column
+            mat[i][0]=0;
+        }
+    }
+}
+---------------------------------------------------------------------------------
+O(n*m) solution using O(n+m) extra space ( better solution)
+void Solution::setZeroes(vector<vector<int> > &mat) {
+    int n=mat.size();
+    int m=mat[0].size();
+    vector<int>col(m,-1),row(n,-1);
+    for(int i=0;i<n;i++){
+        for(int j=0;j<m;j++){
+            if(mat[i][j]==0){
+                col[j]=0;
+                row[i]=0;
+            }
+        }
+    }
+    for(int i=0;i<n;i++){
+        for(int j=0;j<m;j++){
+            if(row[i]==0 || col[j]==0){
+                mat[i][j]=0;
+            }
+        }
+    }
+}
+
+----------------------------------------------------------------------------
+brute force
+if mat[i][j]==0 then set entire row to -1 if it is 1 and entire column to -1 if it is 1
+then if mat[i][j]==-1 set it to 0
+complexity O(n*m)*(n+m)
+O(1)space
