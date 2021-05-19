@@ -1,0 +1,27 @@
+
+approach 1
+
+create an array of size arr n+1 and while traversing do  arr[val[i]]++
+now traverse the array from 1 to n if(arr[i]==2 repeat and if arr[i]==0 missing).  TIME COMPLEXITY O(2*N);
+
+approach 2
+  
+ vector<int> Solution::repeatedNumber(const vector<int> &A) {
+    // missing-x;
+    // repeated-y
+    long long  n=A.size();
+    long long int C= (n*(n+1))/2;
+    long long int D= (n*(n+1)*(2*n+1))/6;
+    for(int i=0;i<n;i++){
+        long long int pro=(long long) A[i] * (long long )A[i];
+        D-= pro;
+        C-= A[i];
+    }
+    long long int divi= D/C;
+    long long int  x= (divi + C)/2;
+    long long int  y= (divi - C)/2;
+    vector<int>ans;
+    ans.push_back(y);
+    ans.push_back(x);
+    return ans;
+}
