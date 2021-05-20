@@ -1,0 +1,53 @@
+Iterative or Level Order Traversal to calculate height or maximum depth of a binary tree
+
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+int Solution::maxDepth(TreeNode* root) {
+    if(root==NULL){
+        return 0;
+    }
+    queue<TreeNode*>q;
+    q.push(root);
+    int height=0;
+    while(!q.empty()){
+        int s= q.size();
+        for(int i=0;i<s;i++){
+            TreeNode* p= q.front();
+            q.pop();
+            if(p->left!=NULL){
+                q.push(p->left);
+            }
+            if(p->right!=NULL){
+                q.push(p->right);
+            }
+        }
+        height++;
+    }
+    return height;
+}
+
+-----------------------------------------------------------------------
+Recursive method to calculate height/ maximum depth of a binary tree
+
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+int Solution::maxDepth(TreeNode* root) {
+    if(root==NULL){
+        return 0;
+    }
+    return 1+ max(maxDepth(root->left),maxDepth(root->right));
+}
