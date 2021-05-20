@@ -1,0 +1,38 @@
+vector<int> Solution::subUnsort(vector<int> &arr) {
+    int n=arr.size();
+    vector<int>ans;
+    int s,e,mx,mn;
+    for(s=0;s<n-1;s++){
+        if(arr[s]>arr[s+1]){
+            break;
+        }
+    }
+    if(s==n-1){
+        ans.push_back(-1);
+        return ans;
+    }
+    for(e=n-1;e>0;e--){
+        if(arr[e]<arr[e-1]){
+            break;
+        }
+    }
+    mx=INT_MIN,mn=INT_MAX;
+    for(int i=s;i<=e;i++){
+        mx=max(mx,arr[i]);
+        mn=min(mn,arr[i]);
+    }
+    for(int i=0;i<s;i++){
+        if(arr[i]>mn){
+            s=i;break;
+        }
+    }
+    for(int i=n-1;i>=e+1;i--){
+        if(arr[i]<mx){
+            e=i;
+            break;
+        }
+    }
+    ans.push_back(s);
+    ans.push_back(e);
+    return ans;
+}
