@@ -12,15 +12,16 @@ vector<int> Solution::inorderTraversal(TreeNode *root) {
     vector<int>ans;
     TreeNode *var=root;
     while(!st.empty() || var){
-        if(var){
-            st.push(var);
-            var=var->left;
-        }
-        else{
+        if(var==NULL){
             TreeNode *p= st.top();
             ans.push_back(p->val);
             st.pop();
             var=p->right;
+            
+        }
+        else{
+            st.push(var);
+            var=var->left;
         }
     }
     return ans;
