@@ -1,5 +1,6 @@
 ALGORITHM
 // intuition is from back even for length 1 also the permutation will be increasing
+//ind1 will give the prefix which you need to change to something next greater
 1. Traverse from back and find the first element such that a[i]<a[i+1] ind1;
 if this step returns -1 then directly skip to step 4
 2. Again traverse from back and find the first index such that a[ind2]>a[ind1]
