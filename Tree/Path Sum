@@ -1,0 +1,25 @@
+void calc(TreeNode* root, int sum, vector<int>&ans){
+    if(root==NULL){
+        return;
+    }
+    sum+= root->val;
+    if(root->left==NULL && root->right==NULL){
+        ans.push_back(sum);
+        return;
+    }
+    calc(root->left,sum,ans);
+    calc(root->right,sum,ans);
+}
+int Solution::hasPathSum(TreeNode* root, int x) {
+    int sum=0;
+    vector<int>ans;
+    calc(root,sum,ans);
+    bool flg=false;
+    for(int i=0;i<ans.size();i++){
+        if(ans[i]==x){
+            flg=true;
+            break;
+        }
+    }
+    return flg;
+}
