@@ -1,0 +1,23 @@
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+TreeNode* helper(const vector<int>&nums, int start , int end){
+    if(end<start){
+        return NULL;
+    }
+    int mid=(start+end)/2;
+    TreeNode* root= new TreeNode(nums[mid]);
+    root->left= helper(nums,start,mid-1);
+    root->right=helper(nums,mid+1,end);
+    return root;
+}
+TreeNode* Solution::sortedArrayToBST(const vector<int> &nums) {
+    return helper(nums,0,nums.size()-1);
+}
+// for understanding take 1 2 3 4 5 6 and draw recursion tree khud samjh jayega
