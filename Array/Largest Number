@@ -1,0 +1,21 @@
+bool compart(string a, string b){
+    return a+b>b+a;
+}
+string Solution::largestNumber(const vector<int> &A) {
+    vector<string>ans;
+    int sum=0;
+    for(int i=0;i<A.size();i++){
+        ans.push_back(to_string(A[i]));
+        sum+=A[i];
+    }
+    string l="0";
+    if(sum==0){
+        return l;
+    }
+    sort(ans.begin(),ans.end(),compart);
+    string tot="";
+    for(int i=0;i<ans.size();i++){
+        tot+=ans[i];
+    }
+    return tot;
+}
