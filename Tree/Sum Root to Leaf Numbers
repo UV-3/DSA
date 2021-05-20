@@ -1,0 +1,21 @@
+void calc(TreeNode* root, int sum, int &ans){
+    if(root==NULL){
+        return;
+    }
+    sum= sum*10 + root->val;
+    sum%=1003;
+    if(root->left==NULL && root->right==NULL){
+        ans+= sum;
+        ans%=1003;
+        return;
+    }
+    calc(root->left,sum,ans);
+    calc(root->right,sum,ans);
+}
+int Solution::sumNumbers(TreeNode* root) {
+    int ans=0;
+    int sum=0;
+    calc(root,sum,ans);
+    return ans;
+}
+// issue can be declaring global variable instead pass it into the function
