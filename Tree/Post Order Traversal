@@ -1,0 +1,40 @@
+Using Two Stack method 
+Algorithm
+1. Push root to first stack
+2.loop while first stack is not empty
+    a. pop a node from 1st stack and push it into 2nd stack and push its left and right child back into the 1st stack
+3. print elements of 2nd stack
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+vector<int> Solution::postorderTraversal(TreeNode* root) {
+    vector<int>ans;
+    if(root==NULL){
+        return ans;
+    }
+    stack<TreeNode*>s1,s2;
+    s1.push(root);
+    while(!s1.empty()){
+        TreeNode *p=s1.top();
+        s1.pop();
+        s2.push(p);
+        if(p->left!=NULL){
+            s1.push(p->left);
+        }
+        if(p->right!=NULL){
+            s1.push(p->right);
+        }
+    }
+    while(!s2.empty()){
+        TreeNode*p= s2.top();
+        ans.push_back(p->val);
+        s2.pop();
+    }
+    return ans;
+}
