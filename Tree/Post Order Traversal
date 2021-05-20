@@ -1,4 +1,4 @@
-Using Two Stack method 
+Using Two Stack method  because of the LIFO property of stacks
 Algorithm
 1. Push root to first stack
 2.loop while first stack is not empty
