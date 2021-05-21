@@ -1,0 +1,17 @@
+int Solution::sqrt(int n) {
+    if(n==0){
+        return n;
+    }
+    int l=1,r=n,ind;
+    while(l<=r){
+        int mid=(l+r)/2;
+        if(mid <= n/mid){ // since mid*mid can overflow so we did division
+            ind=mid;
+            l=mid+1;
+        }
+        else{
+            r=mid-1;
+        }
+    }
+    return ind;
+}
