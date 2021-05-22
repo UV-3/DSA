@@ -1,20 +1,18 @@
-Lets say we are at index start then we can swap element at this index with any index>start and permute the elements starting from start+1 using recursion. 
-You can swap back the elements at start and index in order to maintain the order for next recursive call.
-void calc(vector<int>&A, int l, int r,  vector<vector<int>>&ans){
-    if(l==r){
+void calc(vector<vector<int>>&ans,int ind,vector<int>&A){
+    if(ind==A.size()){
         ans.push_back(A);
+        return;
     }
-    else{
-        for(int i=l;i<=r;i++){
-            swap(A[l],A[i]);
-            calc(A,l+1,r,ans);
-            swap(A[l],A[i]);
-        }
+    for(int i=ind;i<A.size();i++){
+        swap(A[i],A[ind]);
+        calc(ans,ind+1,A);
+        swap(A[i],A[ind]); // backtrack
     }
 }
 vector<vector<int> > Solution::permute(vector<int> &A) {
+    sort(A.begin(),A.end());
     vector<vector<int>>ans;
-    int n=A.size();
-    calc(A,0,n-1,ans);
+    calc(ans,0,A);
     return ans;
 }
+// best method. O(n*n!) and space complexity O(1)
