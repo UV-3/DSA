@@ -1,0 +1,40 @@
+// set method calculating all repeated ones also
+void calc(vector<int>&ds, set<vector<int>>&ans,int ind, vector<int>&A){
+    ans.insert(ds);
+    for(int i=ind;i<A.size();i++){
+        ds.push_back(A[i]);
+        calc(ds,ans,i+1,A);
+        ds.pop_back();
+    }
+}
+vector<vector<int> > Solution::subsetsWithDup(vector<int> &A) {
+    sort(A.begin(),A.end());
+    set<vector<int>>ans;
+    vector<int>ds;
+    calc(ds,ans,0,A);
+    vector<vector<int>>fnl;
+    for(auto x:ans){
+        fnl.push_back(x);
+    }
+    return fnl;
+}
+better approach
+void calc(vector<int>&ds, vector<vector<int>>&ans,int ind, vector<int>&A){
+    ans.push_back(ds);
+    for(int i=ind;i<A.size();i++){
+        if(i!=ind && A[i]==A[i-1]){
+            continue;
+        }
+        ds.push_back(A[i]);
+        calc(ds,ans,i+1,A);
+        ds.pop_back();
+    }
+}
+vector<vector<int> > Solution::subsetsWithDup(vector<int> &A) {
+    sort(A.begin(),A.end());
+    vector<vector<int>>ans;
+    vector<int>ds;
+    calc(ds,ans,0,A);
+    return ans;
+}
+// skip the same elements
