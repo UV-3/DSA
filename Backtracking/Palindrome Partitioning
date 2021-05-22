@@ -1,0 +1,28 @@
+bool is_palindrome(string t){
+        int n=t.size();
+        for(int i=0;i<n/2;i++){
+            if(t[i]!=t[n-i-1]){
+                return false;
+            }
+        }
+        return true;
+    }
+void calc(vector<vector<string>>&ans,vector<string>&path,string s,int ind){
+        if(ind==s.size()){
+            ans.push_back(path);
+            return;
+        }
+        for(int i=ind;i<s.size();i++){
+            if(is_palindrome( s.substr(ind,i-ind+1) ) ){
+                path.push_back(s.substr(ind,i-ind+1));
+                calc(ans,path,s,i+1);
+                path.pop_back();
+            }
+        }
+    }
+vector<vector<string> > Solution::partition(string s) {
+    vector<vector<string>>ans;
+    vector<string>path;
+    calc(ans,path,s,0);
+    return ans;
+}
