@@ -1,0 +1,28 @@
+void calc(int ind, vector<int>&ds, set<vector<int>>&ans, int target,vector<int>&A){
+    if(ind==A.size()){
+        if(target==0){
+            ans.insert(ds);
+        }
+        return;
+    }
+    // pick 
+    if(A[ind]<=target){
+        ds.push_back(A[ind]);
+        calc(ind,ds,ans,target-A[ind],A);
+        ds.pop_back();
+    }
+    // not pick
+    calc(ind+1,ds,ans,target,A);
+}
+vector<vector<int> > Solution::combinationSum(vector<int> &A, int target) {
+    sort(A.begin(),A.end());
+    set<vector<int>>ans;
+    vector<int>ds;
+    calc(0,ds,ans,target,A);
+    vector<vector<int>>fnl;
+    for(auto x:ans){
+        fnl.push_back(x);
+    }
+    
+    return fnl;
+}
