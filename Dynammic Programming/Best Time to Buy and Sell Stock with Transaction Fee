@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int dp[50005][2];
+    // dp[i][!own]  and dp[i][own]
+    int helper(int i, int own, vector<int>&prices, int fee){
+        if(i==prices.size()){
+            return 0;
+        }
+        if(dp[i][own]!=-1){
+            return dp[i][own];
+        }
+        if(own){
+            int op1= helper(i+1,1,prices,fee); // i dont sell the stock (so i own it 
+            //currently and check for i+1)
+            int op2= prices[i]+helper(i+1,0,prices,fee); // i sell it
+            return dp[i][1]= max(op1,op2);
+        }
+        else{
+            int op1= helper(i+1,0,prices,fee); // i dont but the stock and check for [i+1 ....n]
+            int op2= -(prices[i]+fee)+ helper(i+1,1,prices,fee); // i buy the stock
+            return dp[i][0]=max(op1,op2);
+        }
+    }
+    int maxProfit(vector<int>& prices, int fee) {
+        memset(dp,-1,sizeof(dp));
+        return helper(0,0,prices,fee);
+    }
+};
