@@ -1,0 +1,47 @@
+// mtn is minimum till now we will check for each index 
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int n=prices.size();
+        if(n==1){
+            return 0;
+        }
+        int mtn=prices[0];
+        int mx=0;
+        for(int i=1;i<n;i++){
+            if(prices[i]>mtn){
+                mx= max(mx,prices[i]-mtn);
+            }
+            mtn=min(mtn,prices[i]);
+        }
+        return mx;
+    }
+};
+better approach  dp 
+class Solution {
+public:
+    int dp[100005][2][1];
+    int helper(int i, int own, int k, vector<int>&prices){
+        if(i==prices.size() || k==-1){
+            return 0;
+        }
+        if(dp[i][own][k]!=-1){
+            return dp[i][own][k];
+        }
+        if(own){
+            int op1= prices[i]+ helper(i+1,0,k-1,prices);
+            int op2= helper(i+1,1,k,prices);
+            return dp[i][own][k]=max(op1,op2);
+        }
+        else{
+            int op1= -prices[i]+helper(i+1,1,k,prices);
+            int op2= helper(i+1,0,k,prices);  // buy it
+            return dp[i][own][k]=max(op1,op2); // dont buy it
+        }
+    }
+    int maxProfit(vector<int>& prices) {
+        int k=1;
+        memset(dp,-1,sizeof(dp));
+        return helper(0,0,k-1,prices);
+    }
+};
