@@ -1,0 +1,9 @@
+int helper(TreeNode* p, TreeNode *q){
+    if(p==NULL || q==NULL){
+        return (p==q);
+    }
+    return (p->val==q->val && helper(p->right,q->left) && helper(p->left,q->right));
+}
+int Solution::isSymmetric(TreeNode* root) {
+    return helper(root->left ,root->right);
+}
