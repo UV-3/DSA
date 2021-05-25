@@ -1,0 +1,29 @@
+string Solution::solve(string s) {
+    int n=s.size();
+    string l="-1";
+    if(n==1){
+        return l;
+    }
+    vector<int>nums;
+    for(int i=0;i<n;i++){
+        nums.push_back(s[i]-'0');
+    }
+    int i;
+    for(i=n-2;i>=0;){
+        if(nums[n-1]>nums[i]){
+            swap(nums[i],nums[n-1]);
+            break;
+        }
+        else{
+            i--;
+        }
+    }
+    if(i==-1){
+        return l;
+    }
+    string an="";
+    for(int i=0;i<n;i++){
+        an+=to_string(nums[i]);
+    }
+    return an;
+}
