@@ -1,0 +1,8 @@
+int Solution::trailingZeroes(int n) {
+    // count of  number of 5's power till n
+    int ans=0;
+    for(int i=5;n/i>=1;i*=5){
+        ans+= n/i;
+    }
+    return ans;
+}
