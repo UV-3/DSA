@@ -1,0 +1,23 @@
+int Solution::isPalindrome(int n) {
+    if(n<0){
+        return false;
+    }
+    int res=n,cnt=0;
+    while(res){
+        cnt++;
+        res=res/10;
+    }
+    int ten=10;
+    for(int i=0;i<cnt/2;i++){
+        int num1=  n;
+        num1=num1/pow(ten,cnt-i-1);
+        num1%=ten;
+        int num2=  n;
+        num2=num2/pow(ten,i);
+        num2%=ten;
+        if(num1!=num2){
+            return false;
+        }
+    }
+    return true;
+}
