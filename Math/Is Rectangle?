@@ -1,0 +1,19 @@
+int Solution::solve(int A, int B, int C, int D) {
+    map<int, int > m;
+    m[A]++;m[B]++;m[C]++;m[D]++;
+    if(m.size()>2){
+        return 0;
+    }
+    if(m.size()==1){
+        return 1;
+    }
+    if(m.size()==2){
+        int cnt=0;
+        for(auto x:m){
+            if(x.second==2){
+                cnt++;
+            }
+        }
+        return (cnt==2);
+    }
+}
