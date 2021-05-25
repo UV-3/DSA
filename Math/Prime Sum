@@ -1,0 +1,19 @@
+vector<int> Solution::primesum(int n) {
+    vector<bool>isprime(n+1,true);
+    isprime[0]=isprime[1]=false;
+    for(int i=2;i<=n;i++){
+        if(isprime[i] && (long long ) i*i <=n){
+            for(int j=i*i;j<=n;j+=i){
+                isprime[j]=false;
+            }
+        }
+    }
+    vector<int>ans;
+    for(int i=2;i<=n;i++){
+        if(isprime[i] && isprime[n-i]){
+            ans.push_back(i);
+            ans.push_back(n-i);
+            return ans;
+        }
+    }
+}
