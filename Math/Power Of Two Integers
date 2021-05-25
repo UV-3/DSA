@@ -1,0 +1,12 @@
+int Solution::isPower(int n) {
+    if(n==1){
+        return true;
+    }
+    for(int i=2;i<=sqrt(n);i++){
+        double d= (double)log10(n)/ (double)log10(i);
+        if(d-(int)d==0){
+            return true;
+        }
+    }
+    return false;
+}
