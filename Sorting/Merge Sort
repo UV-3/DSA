@@ -1,0 +1,43 @@
+class Solution {
+public:
+    void merge(vector<int>&nums, int start , int mid, int end){
+        vector<int>temp(end-start+1); // create an empty vector
+        int i=start,j=mid+1,k=0;
+        while(i<=mid && j<= end){
+            if(nums[i]<=nums[j]){
+                temp[k]=nums[i];
+                i++;k++;
+            }
+            else{
+                temp[k]=nums[j];
+                j++;k++;
+            }
+        }
+        while(i<=mid){
+            temp[k]=nums[i];
+            i++;k++;
+        }
+        while(j<=end){
+            temp[k]=nums[j];
+            j++;k++;
+        }
+        for(int i=start;i<=end;i++){
+            nums[i]=temp[i-start];
+        }
+    } 
+    void mergesort(vector<int>&nums, int start , int end){
+        if(start<end){
+            int mid= (start+end)/2;
+            mergesort(nums,start,mid);
+            mergesort(nums,mid+1,end);
+            merge(nums,start,mid,end);
+        }
+    }
+    vector<int> sortArray(vector<int>& A) {
+        vector<int>nums=A;
+        int n=nums.size();
+        mergesort(nums,0,n-1);
+        return nums;
+    }
+};
+// VERY VERY IMP
