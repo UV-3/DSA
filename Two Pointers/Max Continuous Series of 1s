@@ -1,0 +1,39 @@
+vector<int> Solution::maxone(vector<int> &nums, int m) {
+    int i=0,j=0,ans=INT_MIN,zc=0,ind=INT_MAX;
+    int n=nums.size();
+    while(j<n){
+        if(zc<=m){
+            if(nums[j]==0){
+                zc++;
+            }
+            j++;
+        }
+        if(zc>m){
+            if(nums[i]==0){
+                zc--;
+            }
+            i++;
+        }
+        if(j-i>ans && zc<=m){
+            ans= j-i;
+            ind=i;
+        }
+    }
+    int cnt=0;
+    vector<int>fnl;
+    for(int i=ind;i<n;i++){
+        if(cnt<=m ){
+            if(nums[i]==1){
+                fnl.push_back(i);
+            }
+            else{
+                if(cnt==m){
+                    break;
+                }
+                fnl.push_back(i);cnt++;
+            }
+        }
+    }
+    return fnl;
+}
+// very very nice question
