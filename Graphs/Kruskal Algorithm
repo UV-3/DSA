@@ -1,0 +1,81 @@
+#include "bits/stdc++.h"
+#define         int                 long long
+#define         pb                  push_back
+#define         vi                  vector<int>
+#define         mod                 1000000007
+#define         sz(x)               (int)((x).size())
+#define         all(x)              (x).begin(),(x).end()
+#define         FOR(i,a,b)          for(int i=a;i<b;i++)
+#define         INF                 1000000000000000000
+#define         endl                "\n"
+using namespace std;
+
+const int N=2e5+5;
+
+vector<vector<int>>ds(N,vector<int>(3)); // ds[i][0] is weight and ds[i][1] and ds[i][2] are nodes
+int parent[N], rnk[N]; // for dsu
+
+void makeSet(int n){
+    for(int i=0;i<n;i++){
+        parent[i]=i;
+        rnk[i]=0;
+    }
+}
+int findParent(int node){
+    if(node==parent[node]){
+        return node;
+    }
+    return parent[node]=findParent(parent[node]);  // path compression
+}
+void Union(int u, int v){
+    u= findParent(u);
+    v= findParent(v);
+    if(rnk[u]<rnk[v]){
+        parent[u]=v;
+    }
+    else if( rnk[u]>rnk[v]){
+        parent[v]=u;
+    }
+    else{
+        parent[v]=u;
+        rnk[u]++;
+    }
+}
+void kruskal(int n){
+    makeSet(n);
+}
+void TEST_CASE(){
+    int n,m;
+    cin>>n>>m;
+    for(int i=0;i<m;i++){
+        int u,v,wt;
+        cin>>u>>v>>wt;
+        u--;v--;
+        ds[i][0]=wt;
+        ds[i][1]=u;
+        ds[i][2]=v;
+    }
+    sort(ds.begin(),ds.begin()+ m);
+    kruskal(n);
+    int sum=0,cnt=0;
+    for(int i=0;i<m;i++){
+        if(findParent(ds[i][1])!=findParent(ds[i][2])){
+            sum+= ds[i][0];
+            Union(ds[i][1],ds[i][2]);
+            cnt++;
+        }
+    }
+    if(cnt<n-1){
+        cout<<"IMPOSSIBLE"<<endl;
+        return;
+    }
+    cout<<sum<<endl;
+}
+signed main(){
+    int t=1;
+    //cin>>t;
+    while(t--){
+        TEST_CASE();
+    }
+    return 0;
+}
