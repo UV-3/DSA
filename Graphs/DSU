@@ -3,7 +3,7 @@ const int N=2e5+5;
 int parent[N],rnk[N];
 
 void makeSet(int n){
-    for(int i=1;i<=n;i++){
+    for(int i=0;i<n;i++){
         parent[i]=i;
         rnk[i]=0;
     }
