@@ -1,0 +1,31 @@
+const int N=2e5+5;
+
+int parent[N],rnk[N];
+
+void makeSet(int n){
+    for(int i=1;i<=n;i++){
+        parent[i]=i;
+        rnk[i]=0;
+    }
+}
+
+int findParent(int node){
+    if(node==parent[node]){
+        return node;
+    }
+    return parent[node]=findParent(parent[node]);  // path compression
+}
+void Union(int u, int v){
+    u= findParent(u);
+    v= findParent(v);
+    if(rnk[u]<rnk[v]){
+        parent[u]=v;
+    }
+    else if( rnk[u]>rnk[v]){
+        parent[v]=u;
+    }
+    else{
+        parent[v]=u;
+        rnk[u]++;
+    }
+}
