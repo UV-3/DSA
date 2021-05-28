@@ -1,0 +1,21 @@
+int Solution::largestRectangleArea(vector<int> &A) {
+    int n=A.size();
+    int ans=0;
+    stack<pair<int,int> >st;
+    for(int i=0;i<n;i++){  // traverse the heights
+        int start=i;
+        while(!st.empty() && st.top().second > A[i]){
+            pair<int, int>p=st.top();
+            st.pop();
+            ans=max(ans,(i-p.first)*p.second);
+            start=p.first; // shifting the starting index backwards or extending
+        }
+        st.push({start,A[i]});
+    }
+    while(!st.empty()){
+        pair<int, int>p=st.top();
+        st.pop();
+        ans=max(ans,p.second*(n-p.first));
+    }
+    return ans;
+}
