@@ -1,12 +1,16 @@
-int Solution::maxProduct(const vector<int> &A) {
-    int n=A.size();
-    int ans=A[0];
-    vector<int>dp1(n),dp2(n);
-    dp1[0]=dp2[0]=A[0];
-    for(int i=1;i<n;i++){
-        dp1[i]= max( A[i],max( dp1[i-1]*A[i] , dp2[i-1]*A[i] ) );
-        dp2[i]= min( A[i],min( dp1[i-1]*A[i] , dp2[i-1]*A[i] ) );
-        ans=max(ans,max(dp1[i],dp2[i]));
+class Solution {
+public:
+    int maxProduct(vector<int>& nums) {
+        int p1=nums[0],p2=nums[0];
+        int n=nums.size();
+        int ans=nums[0];
+        for(int i=1;i<n;i++){
+            int prev1=p1;
+            int prev2=p2;
+            p1= max({nums[i],prev1*nums[i],prev2*nums[i]});
+            p2= min({nums[i],prev1*nums[i],prev2*nums[i]});
+            ans=max({ans,p1,p2});
+        }
+        return ans;
     }
-    return ans;
-}
+};
