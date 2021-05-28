@@ -1,0 +1,39 @@
+// O(m*n) extra space
+int Solution::solve(vector<vector<int> > &A) {
+    /*dp(i,j) represents the side length of the maximum square whose bottom
+    right corner is the cell with index (i,j) in the original matrix.
+     Starting from index (0,0), for every 1 found in the original matrix, 
+     we update the value of the current element as
+     dp[i][j]=min({dp[i][j-1],dp[i-1][j],dp[i-1][j-1]})+1*/
+     int n=A.size();
+    int m=A[0].size();
+    vector<vector<int>>dp(n+1,vector<int>(m+1,0));
+    int ans=0;
+    for(int i=1;i<=n;i++){
+        for(int j=1;j<=m;j++){
+            if(A[i-1][j-1]==1){
+                dp[i][j]=min({dp[i-1][j],dp[i][j-1],dp[i-1][j-1]})+1;
+                ans=max(ans,dp[i][j]);
+            }
+        }
+    }
+    return ans*ans;
+}
+
+--------------------------------------------------------------------------
+O(1) extra space
+int Solution::solve(vector<vector<int> > &A) {
+    int ans=0;
+    int n= A.size();
+    int m=A[0].size();
+    for(int i=0;i<n;i++){
+        for(int j=0;j<m;j++){
+            int a= (i&&j)?A[i-1][j-1]:0;
+            int b= (i)?A[i-1][j]:0;
+            int c= (j)?A[i][j-1]:0;
+            A[i][j]=(A[i][j]==1)?min({a,b,c})+1:0;
+            ans=max(ans,A[i][j]*A[i][j]);
+        }
+    }
+    return ans;
+}
