@@ -1,0 +1,16 @@
+unsigned int Solution::reverse(unsigned int n) {
+    //In this approach, one by one bits in binary representation 
+    //of n are being obtained with the help of bitwise right shift
+    //operation and they are being accumulated in rev with the help
+    //of bitwise left shift operation. 
+    unsigned int ans=0;
+    for(int i=0;i<32;i++){
+        ans<<=1;
+        if(n&1==1){
+            ans = ans^1;  // we know the rightmost bit of rev currently is 0 so we do xor
+        }
+        n>>=1;
+    }
+    return ans;
+}
+// dry run for 7(00000...111)
