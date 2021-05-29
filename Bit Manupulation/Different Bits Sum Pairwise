@@ -1,0 +1,15 @@
+int Solution::cntBits(vector<int> &A) {
+    int ans=0,mod=1e9+7;
+    for(int i=31;i>=0;i--){
+        int zr=0,one=0;
+        for(int j=0;j<A.size();j++){
+            if(A[j]&(1<<i)){
+                one++;
+            }
+            else{zr++;}
+        }
+        long long int a= ans+ (long long )zr*one*2;
+        ans= a%mod;
+    }
+    return ans;
+}
