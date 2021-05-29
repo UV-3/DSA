@@ -1,0 +1,17 @@
+int Solution::findMinXor(vector<int> &A) {
+    int n=A.size();
+    int xr=INT_MAX;
+    sort(A.begin(),A.end());
+    for(int i=0;i<n-1;i++){
+        int val= A[i]^A[i+1];
+        xr=min(xr,val);
+    }
+    return xr;
+}
+// when sorted consider 3 indices A<=B=<C;
+in A and C we check for the first leftmost bit which is set in C and not in A(that will always exist as C>=A)
+now case 1
+if(A[i]==0 && B[i]==0) so A[i]^B[i]==0 && A[i]^C[i]==1 so A[i]^B[i]< A[i]^C[i]
+now case 2
+if(A[i]==0 && B[i]==1) so B[i]^C[i]==0 && A[i]^C[i]==1 so B[i]^C[i] <A[i]^C[i]
+hence proved
