@@ -1,0 +1,12 @@
+int calc(int n){
+    // brian kernighan's algorithm states if we do n&(n-1) we set flip all 
+    // the numbers starting from the rightmost set bit
+    if(n==0){
+        return 0;
+    }
+    return 1+calc(n&(n-1));
+}
+int Solution::numSetBits(unsigned int n) {
+    int num=n;
+    return calc(num);
+}
