@@ -1,0 +1,22 @@
+ListNode* Solution::mergeTwoLists(ListNode* l1, ListNode* l2) {
+    if(l1==NULL){
+        return l2;
+    }
+    if(l2==NULL){
+        return l1;
+    }
+    if(l1->val> l2->val){  // we will always try that l1<l2
+        swap(l1,l2);
+    }
+    ListNode *res=l1;  // res is the head of merge sorted list
+    while(l1!=NULL && l2!=NULL){
+        ListNode *temp=NULL;
+        while(l1!=NULL && l1->val<= l2->val){
+            temp=l1;
+            l1=l1->next;
+        }
+        temp->next=l2;  // new connection and break the old one
+        swap(l1,l2);   // again try to maintain smaller in l1
+    }
+    return res;
+}
