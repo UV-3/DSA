@@ -1,0 +1,40 @@
+// memoised
+int dp[1005][1005];
+int lcs(string s, int i , int j){
+    if(i==0 || j==0){
+        return 0;
+    }
+    if(dp[i][j]!=-1){
+        return dp[i][j];
+    }
+    if(s[i-1]==s[j-1] && i!=j){
+        return dp[i][j]= 1+lcs(s,i-1,j-1);
+    }
+    return dp[i][j]=max( lcs(s,i-1,j), lcs(s,i,j-1) );
+}
+int Solution::anytwo(string s) {
+    int n=s.size();
+    memset(dp,-1,sizeof(dp));
+    return (lcs(s,n,n)>=2)?1:0;
+}
+// top down
+int Solution::anytwo(string s) {
+    int n=s.size();
+    int dp[n+1][n+1];
+    for(int i=0;i<=n;i++){
+        for(int j=0;j<=n;j++){
+            dp[i][j]=0;
+        }
+    }
+    for(int i=1;i<=n;i++){
+        for(int j=1;j<=n;j++){
+            if(s[i-1]== s[j-1] && i!=j){
+                dp[i][j]=dp[i-1][j-1]+1;
+            }
+            else{
+                dp[i][j]=max(dp[i-1][j],dp[i][j-1]);
+            }
+        }
+    }
+    return (dp[n][n]>=2)?1:0;
+}
