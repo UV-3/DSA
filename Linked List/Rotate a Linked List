@@ -1,0 +1,28 @@
+class Solution {
+public:
+    ListNode* rotateRight(ListNode* head, int k) {
+        // edge cases 
+        if(head==NULL  || head->next==NULL || k==0){
+            return head;
+        }
+        // computing the length
+        ListNode * dummy = head;
+        int len=1;
+        while(dummy->next!=NULL){
+            len++;
+            dummy=dummy->next;
+        }
+        // go till that node 
+        k= k%len;
+        k= len-k;
+        dummy->next=head;
+        while(k--){
+            dummy= dummy->next;
+        }
+        // make the node head and break the connection
+        head=dummy->next;
+        dummy->next=NULL;
+        
+        return head;
+    }
+};
