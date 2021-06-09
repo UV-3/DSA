@@ -1,0 +1,37 @@
+const int N=2e5+5;
+
+vector<pair<int,int>>adj[N];
+vector<bool>vis(N,false);
+vector<int>dis(N,INT_MAX);
+stack<int>st;
+
+void toposort(int v){
+    vis[v]=true;
+    for(auto it:adj[v]){
+        if(!vis[it.first]){
+            toposort(it.first);
+        }
+    }
+    st.push(v);
+}
+
+void shortestpath(int src,int n){
+    for(int i=0;i<n;i++){
+        if(!vis[i]){
+            toposort(i);
+        }
+    }
+    dis[src]=0;
+    
+    while(!st.empty()){
+        int node=st.top();
+        st.pop();
+        if(dis[node]!=INT_MAX){
+            for(auto it:adj[node]){
+                if(dis[node]+ it.second< dis[it.first]){
+                    dis[it.first]= dis[node]+it.second;
+                }
+            }
+        }
+    }
+}
