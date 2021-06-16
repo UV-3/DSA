@@ -1,0 +1,22 @@
+vector<int> Solution::solve(vector<int> &A, int B) {
+    int n=A.size();
+    vector<int>pos(n+1);
+    for(int i=0;i<n;i++){
+        pos[A[i]]=i;
+    }
+    for(int i=0;i<n;i++){
+        int req= n-i;
+        if(B==0){
+            break;
+        }
+        if(A[i]!=req){
+            int p= pos[req];
+            int num=A[i];
+            swap(A[i],A[p]);
+            pos[num]=p;
+            pos[A[i]]=i;
+            B--;
+        }
+    }
+    return A;
+}
