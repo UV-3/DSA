@@ -1,36 +1,38 @@
-int Solution::lis(const vector<int> &A) {
-    int n=A.size();
-    vector<int>dp(n,1);
-    for(int i=1;i<n;i++){
-        for(int j=0;j<i;j++){
-            if(A[j]<A[i]){
-                dp[i]=max(dp[i],dp[j]+1);
-            }
-        }
-    }
-    int ans=1;
-    for(int i=0;i<n;i++){
-        ans= max(ans,dp[i]);
-    }
-    return ans;
-}
-
-
 // O(nlogn) solution
-class Solution {
-public:
-    int lengthOfLIS(vector<int>& nums) {
-        int n=nums.size();
-        vector<int>res;
-        for(int i=0;i<n;i++){
-            auto it= lower_bound(res.begin(),res.end(),nums[i]);
-            if(it==res.end()){
-                res.push_back(nums[i]);
-            }
-            else{
-                *it=nums[i];
-            }
-        }
-        return res.size();
+class Solution{
+    public:
+    int calc(map<int,int>&m, int n){
+        auto it= m.lower_bound(n);
+        if(it==m.begin()) return 0;
+        it--;
+        return it->second;
+    }
+    int longestSubsequence(int n, int a[]){
+       vector<int>v;
+       for(int i=0;i<n;i++){
+           v.push_back(a[i]);
+       }
+       vector<int>dp(n);
+       map<int,int>m;
+       dp[0]=1;
+       m[v[0]]=dp[0];
+       for(int i=1;i<n;i++){
+           dp[i]=1+calc(m,v[i]);
+           if(m[v[i]]>=dp[i]){
+               continue;
+           }
+           else{
+               m[v[i]]=dp[i];
+               auto it= m.lower_bound(v[i]);
+               it++;
+               while(it!=m.end() && it->second<=dp[i]){
+                   auto temp= it;
+                   it++;
+                   m.erase(temp);
+               }
+           }
+       }
+       return *max_element(dp.begin(),dp.end());
+       
     }
 };
