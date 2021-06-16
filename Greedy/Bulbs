@@ -1,0 +1,13 @@
+int Solution::bulbs(vector<int> &A) {
+    int n=A.size();
+    int ans=0,par=0;
+    for(int i=0;i<n;i++){
+        A[i]+=par;
+        A[i]%=2;
+        if(A[i]==0){
+            ans++;
+            par++;
+        }
+    }
+    return ans;
+}
