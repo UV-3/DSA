@@ -7,8 +7,7 @@ public:
         vector<vector<int>>ans;
         reverse(v1.begin(),v1.end());
         reverse(v2.begin(),v2.end());
-        priority_queue< pair<int,pair<int,int>> , vector<pair<int,pair<int,int>>>
-            , greater<pair<int,pair<int,int>>> >q;
+        priority_queue< pair<int,pair<int,int>> , vector<pair<int,pair<int,int>>> ,greater<pair<int,pair<int,int>>> >q;
         set<pair<int,int>>st;
         st.insert({n-1,m-1});
         q.push({v1[n-1]+v2[m-1],{n-1,m-1}});
