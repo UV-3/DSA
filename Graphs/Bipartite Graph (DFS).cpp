@@ -2,7 +2,7 @@
 const int N=2e5+5;
 vector<int>adj[N];
 vector<int>col(N,-1);
-// imp -> instead of using visited array we use color array(most imp step)
+
 bool dfs(int v){
     if(col[v]==-1){
         col[v]=1;
