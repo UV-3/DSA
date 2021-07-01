@@ -10,8 +10,7 @@ void prim(int n){
         key[i]=INF;
         mstSet[i]=false;
     }
-    // basic syntax for comparator priority queue is
-    // priority_queue< type , vector<type>, greater< type > >q;
+    // min heap
     priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>q;
     key[0]=0;
     parent[0]=-1;
